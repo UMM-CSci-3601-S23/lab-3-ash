@@ -1,8 +1,9 @@
-<mat-card appearance="outlined">
+<mat-card appearance="outlined" class="todo-card" *ngIf="this.todo">
   <mat-card-header>
-   Fake Header
+    <mat-card-subtitle class="user-card-name">{{ this.todo.owner }}</mat-card-subtitle>
+    <mat-card-subtitle class="user-card-company">{{ this.todo.category }}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    Fake Body
+    <mat-card-content class="user-card-role">{{ this.todo.body }}</mat-card-content>
   </mat-card-content>
 </mat-card>
