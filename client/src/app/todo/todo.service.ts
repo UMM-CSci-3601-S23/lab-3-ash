@@ -36,7 +36,7 @@ export class TodoService {
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.completed) {
-        httpParams = httpParams.set('status', "completed" ? filters.completed : "uncompleted");
+        httpParams = httpParams.set('status', 'completed' ? filters.completed : 'uncompleted');
       }
     }
     // Send the HTTP GET request with the given URL and parameters.
