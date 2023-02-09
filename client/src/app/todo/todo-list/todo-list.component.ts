@@ -13,6 +13,7 @@ export class TodoListComponent implements OnInit {
   public filteredTodos: Todo[];
 
   public completed: boolean;
+  public todoNameInput: string;
 
   /**
    * This constructor injects both an instance of `TodoService`
@@ -57,7 +58,9 @@ export class TodoListComponent implements OnInit {
    * get an updated list of `filteredUsers`.
    */
   public updateFilter() {
-    this.filteredTodos = this.serverFilteredTodos;
+    this.filteredTodos = this.todoService.filterTodos(
+      this.serverFilteredTodos, { name: this.todoNameInput }
+    );
   }
 
   /**

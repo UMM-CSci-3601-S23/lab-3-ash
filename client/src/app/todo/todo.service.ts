@@ -45,4 +45,20 @@ export class TodoService {
       params: httpParams,
     });
   }
+
+  filterTodos(todos: Todo[], filters: { name?: string; category?: string }): Todo[] {
+    let filteredTodos = todos;
+
+    if (filters.name) {
+      filters.name = filters.name.toLowerCase();
+      filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.name) !== -1);
+    }
+
+    if (filters.category) {
+      filters.category = filters.category.toLowerCase();
+      filteredTodos = filteredTodos.filter(user => user.category.toLowerCase().indexOf(filters.category) !== -1);
+    }
+
+    return filteredTodos;
+  }
 }
