@@ -29,14 +29,21 @@ export class TodoService {
    *  or company to filter by, or any combination of those
    * @returns an `Observable` of an array of `Todos`.
    */
-  getTodos(filters?: { completed?: boolean }): Observable<Todo[]> {
+  getTodos(filters?: { completed?: boolean; name?: string; }): Observable<Todo[]> {
     // `HttpParams` is essentially just a map used to hold key-value
     // pairs that are then encoded as "?key1=value1&key2=value2&…" in
     // the URL when we make the call to `.get()` below.
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
       if (filters.completed) {
-        httpParams = httpParams.set('status', 'completed' ? filters.completed : 'uncompleted');
+        httpParams = httpParams.set('status', 'completed');
+      }
+      else {
+        httpParams = httpParams.set('status', 'uncompleted');
+      }
+
+      if (filters.name) {
+        httpParams = httpParams.set('owner', filters.name);
       }
     }
     // Send the HTTP GET request with the given URL and parameters.
