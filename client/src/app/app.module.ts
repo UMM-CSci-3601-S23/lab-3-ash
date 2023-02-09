@@ -30,6 +30,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 import { UserCardComponent } from './users/user-card.component';
 import { UserProfileComponent } from './users/user-profile.component';
+import { TodoListComponent } from './todo/todo-list/todo-list.component';
+import { TodoCardComponent } from './todo/todo-card/todo-card.component';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -47,7 +51,8 @@ const MATERIAL_MODULES: any[] = [
   MatFormFieldModule,
   MatDividerModule,
   MatRadioModule,
-  MatSnackBarModule
+  MatSnackBarModule,
+  MatCheckboxModule
 ];
 
 @NgModule({
@@ -57,6 +62,8 @@ const MATERIAL_MODULES: any[] = [
     UserListComponent,
     UserCardComponent,
     UserProfileComponent,
+    TodoListComponent,
+    TodoCardComponent,
   ],
   imports: [
     BrowserModule,
