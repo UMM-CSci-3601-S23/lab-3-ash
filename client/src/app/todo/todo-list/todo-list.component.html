@@ -1,3 +1,77 @@
-<div class="todo-cards-container flex-row gap-10 flex-wrap">
-  <app-todo-card *ngFor="let todo of filteredTodos" class="todo-card" fxFlex="1 1 280px" [todo]="todo"></app-todo-card>
+<div class="flex-row">
+  <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card appearance="outlined" class="search-card">
+      <mat-card-title class="user-list-title">Todos</mat-card-title>
+      <mat-card-content class="flex-col" >
+
+        <div class="flex-row gap-10 flex-wrap">
+          <!-- Examples of filtering in Angular -->
+
+          <mat-form-field class="input-field">
+            <mat-label>Category</mat-label>
+            <input matInput data-test="todoCategoryInput" placeholder="Filter by category"
+            [(ngModel)]="todoCategoryInput" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Body</mat-label>
+            <input matInput data-test="todoBodyInput" placeholder="Filter by body contents"
+            [(ngModel)]="todoBodyInput" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Display</mat-label>
+            <mat-select (selectionChange)="updateFilter()" [(ngModel)]="completed" data-test="completed">
+              <mat-option>--</mat-option>
+              <mat-option value="incomplete">Todo</mat-option>
+              <mat-option value="complete">Done</mat-option>
+              <mat-option value="all">All</mat-option>
+            </mat-select>
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Max to Display</mat-label>
+            <input matInput data-test="maxDisplay" type="number" placeholder="Maximum todos to display"
+            min="1" max="200" [(ngModel)]="maxDisplay" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="flex-row gap-10 flex-wrap">
+          <!-- Examples of filtering on the server -->
+          <mat-form-field class="input-field">
+            <mat-label>Name</mat-label>
+            <input matInput data-test="todoNameInput" placeholder="Filter by name"
+            [(ngModel)]="todoNameInput" (input)="getTodosFromServer()">
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
+
+<div class="flex-row">
+  <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else usersError" >
+    <div class="todo-cards-container flex-row gap-10 flex-wrap">
+      <app-todo-card *ngFor="let todo of filteredTodos" class="todo-card" fxFlex="1 1 280px" [todo]="todo"></app-todo-card>
+    </div>
+  </div>
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #usersError>
+    <div class="flex-1" fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+      <mat-error>
+        There was a problem loading the users. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
+  </ng-template>
 </div>

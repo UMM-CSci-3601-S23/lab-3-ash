@@ -56,4 +56,8 @@ describe('TodoListComponent', () => {
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
+
+  it('contains all the users', () => {
+    expect(component.serverFilteredTodos.length).toBe(3);
+  });
 });

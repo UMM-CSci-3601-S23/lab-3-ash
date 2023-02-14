@@ -38,7 +38,7 @@ export class MockTodoService extends TodoService {
     super(null);
   }
 
-  getTodos(filters: { completed?: boolean }): Observable<Todo[]> {
+  getTodos(filters: { completed?: boolean; name?: string }): Observable<Todo[]> {
     // Our goal here isn't to test (and thus rewrite) the service, so we'll
     // keep it simple and just return the test users regardless of what
     // filters are passed in.
