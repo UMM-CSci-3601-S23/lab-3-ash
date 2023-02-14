@@ -15,6 +15,7 @@ export class TodoListComponent implements OnInit {
   public completed: string;
   public todoNameInput: string;
   public todoCategoryInput: string;
+  public todoBodyInput: string;
 
   /**
    * This constructor injects both an instance of `TodoService`
@@ -58,11 +59,8 @@ export class TodoListComponent implements OnInit {
    */
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { category: this.todoCategoryInput, completion: this.completed }
+      this.serverFilteredTodos, { category: this.todoCategoryInput, completion: this.completed, body: this.todoBodyInput }
     );
-
-
-
   }
 
   /**

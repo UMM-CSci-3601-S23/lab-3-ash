@@ -132,7 +132,7 @@ describe('TodoService', () => {
      */
     it('filters by name', () => {
       const name = 'Fry';
-      const filteredTodos = service.filterTodos(testTodos, { name: name });
+      const filteredTodos = service.filterTodos(testTodos, { name });
       // There should be two users with an 'i' in their
       // name: Chris and Jamie.
       expect(filteredTodos.length).toBe(2);
@@ -144,12 +144,23 @@ describe('TodoService', () => {
 
     it('filters by category', () => {
       const category = 'software design';
-      const filteredTodos = service.filterTodos(testTodos, { category: category });
+      const filteredTodos = service.filterTodos(testTodos, { category });
       // There should be just one user that has UMM as their company.
       expect(filteredTodos.length).toBe(1);
       // Every returned user's company should contain 'UMM'.
       filteredTodos.forEach(todo => {
         expect(todo.category.indexOf(category)).toBeGreaterThanOrEqual(0);
+      });
+    });
+
+    it('filters by body', () => {
+      const bodyContents = 'commodo';
+      const filteredTodos = service.filterTodos(testTodos, { body: bodyContents });
+      // There should be just one user that has UMM as their company.
+      expect(filteredTodos.length).toBe(2);
+      // Every returned user's company should contain 'UMM'.
+      filteredTodos.forEach(todo => {
+        expect(todo.body.toLowerCase().indexOf(bodyContents)).toBeGreaterThanOrEqual(0);
       });
     });
 
@@ -161,7 +172,7 @@ describe('TodoService', () => {
       // an 'M', so this should test combined filtering.
       const name = 'Fry';
       const category = 'video games';
-      const filters = { name: name, category: category };
+      const filters = { name, category };
       const filteredTodos = service.filterTodos(testTodos, filters);
       // There should be just one user with these properties.
       expect(filteredTodos.length).toBe(1);
