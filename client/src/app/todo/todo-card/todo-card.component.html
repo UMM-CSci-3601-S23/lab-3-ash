@@ -1,6 +1,6 @@
-<mat-card appearance="outlined" class="todo-card" *ngIf="this.todo">
+<mat-card appearance="outlined" class="todo-card todo-card-selector" *ngIf="this.todo">
   <mat-card-header>
-    <mat-card-title class="user-card-company">{{ this.todo.category }}
+    <mat-card-title class="user-card-company"><span class="todo-cat-selector">{{ this.todo.category }}</span>
       <mat-card-subtitle class="user-card-name">{{ this.todo.owner }}</mat-card-subtitle></mat-card-title>
   </mat-card-header>
   <mat-card-content>
