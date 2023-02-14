@@ -32,6 +32,13 @@
             </mat-select>
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
+
+          <mat-form-field class="input-field">
+            <mat-label>Max to Display</mat-label>
+            <input matInput data-test="maxDisplay" type="number" placeholder="Maximum todos to display"
+            min="1" max="200" [(ngModel)]="maxDisplay" (input)="updateFilter()">
+            <mat-hint>Filtered on client</mat-hint>
+          </mat-form-field>
         </div>
 
         <div class="flex-row gap-10 flex-wrap">
