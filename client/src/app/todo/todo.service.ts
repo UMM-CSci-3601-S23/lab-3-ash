@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { filter } from 'cypress/types/bluebird';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Todo } from './todo';
@@ -29,19 +30,12 @@ export class TodoService {
    *  or company to filter by, or any combination of those
    * @returns an `Observable` of an array of `Todos`.
    */
-  getTodos(filters?: { completed?: boolean; name?: string; }): Observable<Todo[]> {
+  getTodos(filters?: { name?: string; }): Observable<Todo[]> {
     // `HttpParams` is essentially just a map used to hold key-value
     // pairs that are then encoded as "?key1=value1&key2=value2&…" in
     // the URL when we make the call to `.get()` below.
     let httpParams: HttpParams = new HttpParams();
     if (filters) {
-      if (filters.completed) {
-        httpParams = httpParams.set('status', 'completed');
-      }
-      else {
-        httpParams = httpParams.set('status', 'uncompleted');
-      }
-
       if (filters.name) {
         httpParams = httpParams.set('owner', filters.name);
       }
@@ -53,17 +47,26 @@ export class TodoService {
     });
   }
 
-  filterTodos(todos: Todo[], filters: { name?: string; category?: string }): Todo[] {
+  filterTodos(todos: Todo[], filters: { name?: string; category?: string, completion?: string }): Todo[] {
     let filteredTodos = todos;
 
-    if (filters.name) {
+    if (filters.name && filters.name.length > 0) {
       filters.name = filters.name.toLowerCase();
       filteredTodos = filteredTodos.filter(todo => todo.owner.toLowerCase().indexOf(filters.name) !== -1);
     }
 
-    if (filters.category) {
+    if (filters.category && filters.category.length > 0) {
       filters.category = filters.category.toLowerCase();
       filteredTodos = filteredTodos.filter(user => user.category.toLowerCase().indexOf(filters.category) !== -1);
+    }
+
+    if (filters.completion) {
+      if (filters.completion == "complete") {
+        filteredTodos = filteredTodos.filter(user => user.status);
+      }
+      else if (filters.completion == "incomplete") {
+        filteredTodos = filteredTodos.filter(user => !user.status);
+      }
     }
 
     return filteredTodos;

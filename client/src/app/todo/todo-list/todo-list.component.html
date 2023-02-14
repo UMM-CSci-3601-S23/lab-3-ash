@@ -9,17 +9,33 @@
           <!-- Examples of filtering in Angular -->
 
           <mat-form-field class="input-field">
-            <mat-label>Name</mat-label>
-            <input matInput data-test="todoNameInput" placeholder="Filter by name"
-            [(ngModel)]="todoNameInput" (input)="updateFilter()">
+            <mat-label>Category</mat-label>
+            <input matInput data-test="todoCategoryInput" placeholder="Filter by category"
+            [(ngModel)]="todoCategoryInput" (input)="updateFilter()">
             <mat-hint>Filtered on client</mat-hint>
           </mat-form-field>
         </div>
 
+        <mat-form-field class="input-field">
+          <mat-label>Display</mat-label>
+          <mat-select (selectionChange)="updateFilter()" [(ngModel)]="completed" data-test="completed">
+            <mat-option>--</mat-option>
+            <mat-option value="incomplete">Todo</mat-option>
+            <mat-option value="complete">Done</mat-option>
+            <mat-option value="all">All</mat-option>
+          </mat-select>
+          <mat-hint>Filtered on client</mat-hint>
+        </mat-form-field>
+
         <div class="flex-row gap-10 flex-wrap">
           <!-- Examples of filtering on the server -->
+          <mat-form-field class="input-field">
+            <mat-label>Name</mat-label>
+            <input matInput data-test="todoNameInput" placeholder="Filter by name"
+            [(ngModel)]="todoNameInput" (input)="getTodosFromServer()">
+            <mat-hint>Filtered on server</mat-hint>
+          </mat-form-field>
         </div>
-
       </mat-card-content>
     </mat-card>
   </div>

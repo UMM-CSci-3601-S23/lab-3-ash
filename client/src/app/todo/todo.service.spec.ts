@@ -119,24 +119,6 @@ describe('TodoService', () => {
       req.flush(testTodos);
     });
 
-    it('correctly calls api/users with filter parameter \'completed\'', () => {
-      service.getTodos({ completed: true }).subscribe(
-        users => expect(users).toBe(testTodos)
-      );
-
-      // Specify that (exactly) one request will be made to the specified URL with the owner parameter.
-      const req = httpTestingController.expectOne(
-        (request) => request.url.startsWith(service.todoUrl) && request.params.has('status')
-      );
-
-      // Check that the request made to that URL was a GET request.
-      expect(req.request.method).toEqual('GET');
-
-      // Check that the role parameter was 'admin'
-      expect(req.request.params.get('status')).toEqual('completed');
-
-      req.flush(testTodos);
-    });
   });
 
   describe('filterTodos()', () => {

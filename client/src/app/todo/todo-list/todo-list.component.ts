@@ -12,8 +12,9 @@ export class TodoListComponent implements OnInit {
   public serverFilteredTodos: Todo[];
   public filteredTodos: Todo[];
 
-  public completed: boolean;
+  public completed: string;
   public todoNameInput: string;
+  public todoCategoryInput: string;
 
   /**
    * This constructor injects both an instance of `TodoService`
@@ -31,9 +32,7 @@ export class TodoListComponent implements OnInit {
    * in the GUI.
    */
   getTodosFromServer() {
-    this.todoService.getTodos({
-      completed: this.completed
-    }).subscribe(returnedTodos => {
+    this.todoService.getTodos({name: this.todoNameInput}).subscribe(returnedTodos => {
       // This inner function passed to `subscribe` will be called
       // when the `Observable` returned by `getUsers()` has one
       // or more values to return. `returnedUsers` will be the
@@ -59,8 +58,11 @@ export class TodoListComponent implements OnInit {
    */
   public updateFilter() {
     this.filteredTodos = this.todoService.filterTodos(
-      this.serverFilteredTodos, { name: this.todoNameInput }
+      this.serverFilteredTodos, { category: this.todoCategoryInput, completion: this.completed }
     );
+
+
+
   }
 
   /**
