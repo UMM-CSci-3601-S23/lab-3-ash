@@ -164,6 +164,26 @@ describe('TodoService', () => {
       });
     });
 
+    it('filters by complete', () => {
+      const filteredTodos = service.filterTodos(testTodos, { completion: 'complete' });
+      // There should be just one user that has UMM as their company.
+      expect(filteredTodos.length).toBe(1);
+      // Every returned user's company should contain 'UMM'.
+      filteredTodos.forEach(todo => {
+        expect(todo.status).toBe(true);
+      });
+    });
+
+    it('filters by incomplete', () => {
+      const filteredTodos = service.filterTodos(testTodos, { completion: 'incomplete' });
+      // There should be just one user that has UMM as their company.
+      expect(filteredTodos.length).toBe(2);
+      // Every returned user's company should contain 'UMM'.
+      filteredTodos.forEach(todo => {
+        expect(todo.status).toBe(false);
+      });
+    });
+
     it('filters by name and category', () => {
       // There's only one user (Chris) whose name
       // contains an 'i' and whose company contains
